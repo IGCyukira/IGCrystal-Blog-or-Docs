@@ -8,6 +8,7 @@ export default {
             items: [
             '/learn/',  // README.md 对应路径
             '/learn/1.md', 
+            '/learn/2.md',
             ],
         },
     ],
