@@ -8,6 +8,6 @@ export default defineNavbarConfig([
     { 
       text: '关于', 
       icon: 'map:wind-surfing',
-      link: 'https://wenturc.com' 
+      link: 'https://IGCrystal.icu' 
     },
 ])

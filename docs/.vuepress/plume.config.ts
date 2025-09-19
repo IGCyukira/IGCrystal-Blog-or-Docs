@@ -6,8 +6,8 @@ export default defineThemeConfig({
     logo: '/logo.png',
 
     profile: {
-        avatar: '/logo-O2.jpg',
-        name: 'WentUrc Docs',
+        avatar: '/logo-2.jpg',
+        name: 'IGCrystal Blog',
         description: '兰花草，梅花桩',
     },
 
@@ -42,8 +42,8 @@ export default defineThemeConfig({
                 align-items: center; 
                 justify-content: center;
                 gap: 8px;">
-                <a aria-label="Homepage" title="WentUrc Documents" href="https://docs.wenturc.com" style="display: inline-flex;">
-                    <img src="/logo.svg" width="20" height="20" />
+                <a aria-label="Homepage" title="IGCrystal" href="https://blog.IGCrystal.icu" style="display: inline-flex;">
+                    <img src="/logo.png" width="20" height="20" />
                 </a>
                 <span>© 2024 - present 
                     <span style="
