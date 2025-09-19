@@ -13,7 +13,7 @@ config:
       text: 路很长，梦还在
       actions:
         -
-          text: main site
+          text: Main Site
           link: https://IGCrystal.icu
           theme: brand
         -
