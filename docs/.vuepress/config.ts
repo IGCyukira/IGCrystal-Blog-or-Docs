@@ -21,6 +21,10 @@ export default defineUserConfig({
     blog: false,
     autoFrontmatter: false,
 
+    markdown: {
+      artPlayer: true,
+    },
+
     plugins: {
       comment: {
         provider: 'Giscus',
