@@ -8,5 +8,3 @@ tags: [隐藏部分]
 
 人生来就是一种创造乌托邦的动物。
 :::
-
-@[artPlayer autoplay](https://hls.wenturc.com/video-hls/Ludicin-LostRequiem-MWC7K2025GrandFinalsTiebreaker/playlist.m3u8)
