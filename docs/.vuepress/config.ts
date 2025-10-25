@@ -2,14 +2,15 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { getDirname, path } from 'vuepress/utils'
+import { robotsPlugin } from './plugins/robots-plugin'
 
 export default defineUserConfig({
   base: '/',
   lang: 'zh-CN',
-  title: 'IGCrystal Blog', // 网站标题
-  description: '路很长，梦仍在', // 网站描述
-  head: [ // 注入到当前HTMl页面 <head> 中的标签
-    ['link', { rel: 'icon', href: '/logo.png' }], // 增加一个自定义的 favicon(网页标签的图标)
+  title: 'IGCrystal Blog', 
+  description: '路很长，梦仍在',
+  head: [ 
+    ['link', { rel: 'icon', href: '/logo.png' }], 
   ],
 
   theme: plumeTheme({
@@ -35,9 +36,22 @@ export default defineUserConfig({
         categoryId: 'DIC_kwDOM13P7M4Cj96G',
         darkTheme: 'dark_protanopia',
         lightTheme: 'light_protanopia',
-      }
+      },
     },
   }),
+
+  plugins: [
+    robotsPlugin({
+      hostname: 'https://blog.igcrystal.icu',
+      localSitemapFilename: 'sitemap.xml',
+      includeLocal: true,
+      externalSitemaps: [
+        // 在此添加其他站点 sitemap
+        'https://wenturc.com/sitemap.xml',
+        'https://igcrustal.icu/sitemap.xml',
+      ],
+    }),
+  ],
 
     alias: {
     '@theme/Home/VPHomeBanner.vue': path.resolve(
