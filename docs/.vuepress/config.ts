@@ -18,10 +18,7 @@ export default defineUserConfig({
     logo: '/logo.png',
     hostname: 'https://blog.igcrystal.icu',
 
-    notes: false,
-    blog: false,
     autoFrontmatter: false,
-
     markdown: {
       artPlayer: true,
     },
