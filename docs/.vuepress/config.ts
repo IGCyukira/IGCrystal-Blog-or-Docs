@@ -3,6 +3,7 @@ import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { getDirname, path } from 'vuepress/utils'
 import { robotsPlugin } from './plugins/robots-plugin'
+import { markdownMathPlugin } from '@vuepress/plugin-markdown-math'
 
 export default defineUserConfig({
   base: '/',
