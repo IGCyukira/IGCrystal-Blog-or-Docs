@@ -18,7 +18,7 @@ config:
           theme: brand
         -
           text: Github
-          link: https://github.com/IGCrystal-NEO
+          link: https://github.com/IGCrystal
           theme: alt
 
 ---
