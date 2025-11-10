@@ -16,7 +16,7 @@ tags: [隐藏部分]
 
 <div align="center">
 
-# The husk of [IGCyukira](https://github.com/IGCyukira)
+# [IGCyukira](https://github.com/IGCyukira)
 
 ==路很长，梦还在==
 
