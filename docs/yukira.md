@@ -3,6 +3,12 @@ title: 关于 冰苷晶
 tags: [隐藏部分]
 ---
 
+:::tip Yukira
+人的价值就在于不断地憧憬，并努力实现憧憬的一部分；
+
+人生来就是一种创造乌托邦的动物。
+:::
+
 <div class="media">
   <img
     src="https://github.wenturc.com/IGCyukira/IGCyukira/refs/heads/main/img/IGCrystal_NOBG_Edit.webp"
@@ -11,12 +17,6 @@ tags: [隐藏部分]
     loading="lazy"
   />
   <div class="media__content">
-
-:::tip Yukira
-人的价值就在于不断地憧憬，并努力实现憧憬的一部分；
-
-人生来就是一种创造乌托邦的动物。
-:::
 
 <div align="center">
 
