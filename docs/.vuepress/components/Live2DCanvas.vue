@@ -7,7 +7,7 @@
       aria-live="polite"
     >
       <span class="live2d-loading__spinner" aria-hidden="true"></span>
-      <span class="live2d-loading__text">喵喵换衣服</span>
+      <span class="live2d-loading__text">喵喵还在穿衣服</span>
     </div>
     <canvas
       ref="canvasRef"
