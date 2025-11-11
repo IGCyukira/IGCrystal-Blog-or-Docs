@@ -10,7 +10,8 @@
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "docs:preview": "npx serve docs/.vuepress/dist"
   },
   "dependencies": {
     "all": "^0.0.0",
