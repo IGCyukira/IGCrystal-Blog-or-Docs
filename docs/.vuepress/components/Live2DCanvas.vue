@@ -1,5 +1,9 @@
 <template>
-  <div class="live2d-container" :style="containerStyle">
+  <div
+    ref="containerRef"
+    class="live2d-container"
+    :style="containerStyle"
+  >
     <div
       v-if="isLoading"
       class="live2d-loading"
@@ -19,7 +23,7 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { ensureLive2DCore } from '../utils/ensureLive2DCore'
 
 const props = defineProps({
@@ -51,13 +55,21 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  fitHeightToModel: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const canvasRef = ref(null)
+const containerRef = ref(null)
 let pixiApp = null
 let live2DModel = null
 let removeResizeListener = null
 const isLoading = ref(true)
+const modelBounds = ref(null)
+let resizeObserver = null
+let pendingSync = false
 
 const toCssDimension = (value) => {
   if (typeof value === 'number' && !Number.isNaN(value)) return `${value}px`
@@ -65,37 +77,91 @@ const toCssDimension = (value) => {
   return '100%'
 }
 
-const containerStyle = computed(() => ({
-  width: toCssDimension(props.width),
-  height: toCssDimension(props.height),
-}))
+const containerStyle = computed(() => {
+  const style = {
+    width: toCssDimension(props.width),
+  }
+
+  if (props.fitHeightToModel && modelBounds.value) {
+    const { width, height } = modelBounds.value
+    if (Number.isFinite(width) && Number.isFinite(height) && height > 0) {
+      style.height = 'auto'
+      style.minHeight = `${Math.ceil(height)}px`
+      style.aspectRatio = `${width} / ${height}`
+    } else {
+      style.height = toCssDimension(props.height)
+    }
+  } else {
+    style.height = toCssDimension(props.height)
+  }
+
+  return style
+})
 
 const canvasStyle = computed(() => ({
-  width: toCssDimension(props.width),
-  height: toCssDimension(props.height),
+  width: '100%',
+  height: '100%',
 }))
 
-const updateModelTransform = () => {
+const positionModel = () => {
   if (!pixiApp || !live2DModel) return
 
   const rendererWidth = pixiApp.renderer.width / pixiApp.renderer.resolution
   const rendererHeight = pixiApp.renderer.height / pixiApp.renderer.resolution
-
-  if (typeof live2DModel.anchor?.set === 'function') {
-    if (props.centered) {
-      live2DModel.anchor.set(0.5, 0.5)
-    } else {
-      live2DModel.anchor.set(0.5, 0.5)
-    }
-  }
 
   if (props.centered) {
     live2DModel.position.set(rendererWidth / 2, rendererHeight / 2)
   } else {
     live2DModel.position.set(0.5, 0.5)
   }
+}
+
+const updateModelMetrics = () => {
+  if (!live2DModel || typeof live2DModel.getLocalBounds !== 'function') return
+
+  const bounds = live2DModel.getLocalBounds()
+  const scaleX = Math.abs(live2DModel.scale?.x ?? props.scale ?? 1)
+  const scaleY = Math.abs(live2DModel.scale?.y ?? props.scale ?? 1)
+  const width = bounds.width * scaleX
+  const height = bounds.height * scaleY
+
+  if (Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) {
+    modelBounds.value = { width, height }
+  }
+}
+
+const syncRendererToContainer = () => {
+  if (!props.fitHeightToModel || !pixiApp || !containerRef.value) return
+
+  const { clientWidth, clientHeight } = containerRef.value
+
+  if (!clientWidth || !clientHeight) return
+
+  pixiApp.renderer.resize(clientWidth, clientHeight)
+}
+
+const scheduleRendererSync = () => {
+  if (!props.fitHeightToModel || pendingSync) return
+
+  pendingSync = true
+  nextTick(() => {
+    pendingSync = false
+    syncRendererToContainer()
+    positionModel()
+  })
+}
+
+const updateModelTransform = () => {
+  if (!pixiApp || !live2DModel) return
+
+  if (typeof live2DModel.anchor?.set === 'function') {
+    live2DModel.anchor.set(0.5, 0.5)
+  }
 
   live2DModel.scale.set(props.scale)
+  positionModel()
+  updateModelMetrics()
+  scheduleRendererSync()
 }
 
 const resizeRendererIfNumeric = () => {
@@ -104,11 +170,14 @@ const resizeRendererIfNumeric = () => {
   const numericWidth = typeof props.width === 'number' ? props.width : null
   const numericHeight = typeof props.height === 'number' ? props.height : null
 
-  if (numericWidth !== null && numericHeight !== null) {
-    pixiApp.renderer.resize(numericWidth, numericHeight)
+  if (numericWidth !== null || numericHeight !== null) {
+    const rendererWidth = numericWidth ?? pixiApp.renderer.width / pixiApp.renderer.resolution
+    const rendererHeight = numericHeight ?? pixiApp.renderer.height / pixiApp.renderer.resolution
+    pixiApp.renderer.resize(rendererWidth, rendererHeight)
   }
 
-  updateModelTransform()
+  positionModel()
+  updateModelMetrics()
 }
 
 onMounted(async () => {
@@ -128,7 +197,7 @@ onMounted(async () => {
     resolution: props.resolution,
   }
 
-  if (props.autoResizeToWindow && typeof window !== 'undefined') {
+  if (props.autoResizeToWindow && !props.fitHeightToModel && typeof window !== 'undefined') {
     appOptions.resizeTo = window
   }
 
@@ -141,6 +210,19 @@ onMounted(async () => {
   }
 
   pixiApp = new PIXI.Application(appOptions)
+
+  if (typeof window !== 'undefined' && props.fitHeightToModel && 'ResizeObserver' in window) {
+    resizeObserver = new ResizeObserver(() => {
+      syncRendererToContainer()
+      positionModel()
+    })
+
+    nextTick(() => {
+      if (containerRef.value) {
+        resizeObserver?.observe(containerRef.value)
+      }
+    })
+  }
 
   try {
     isLoading.value = true
@@ -163,6 +245,10 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   isLoading.value = true
+  resizeObserver?.disconnect()
+  resizeObserver = null
+  pendingSync = false
+  modelBounds.value = null
   live2DModel?.destroy()
   pixiApp?.destroy(true)
   pixiApp = null
@@ -192,10 +278,7 @@ watch(
   (newResolution) => {
     if (!pixiApp) return
     pixiApp.renderer.resolution = newResolution
-    pixiApp.renderer.resize(
-      pixiApp.renderer.width / newResolution * newResolution,
-      pixiApp.renderer.height / newResolution * newResolution,
-    )
+    scheduleRendererSync()
     updateModelTransform()
   },
 )
@@ -203,7 +286,12 @@ watch(
 watch(
   [() => props.width, () => props.height],
   () => {
-    resizeRendererIfNumeric()
+    if (props.fitHeightToModel) {
+      scheduleRendererSync()
+    } else {
+      resizeRendererIfNumeric()
+      updateModelTransform()
+    }
   },
 )
 </script>
