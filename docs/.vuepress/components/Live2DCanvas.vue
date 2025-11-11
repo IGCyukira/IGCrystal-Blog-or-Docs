@@ -1,8 +1,18 @@
 <template>
   <div class="live2d-container" :style="containerStyle">
+    <div
+      v-if="isLoading"
+      class="live2d-loading"
+      role="status"
+      aria-live="polite"
+    >
+      <span class="live2d-loading__spinner" aria-hidden="true"></span>
+      <span class="live2d-loading__text">喵喵换衣服</span>
+    </div>
     <canvas
       ref="canvasRef"
       class="live2d-canvas"
+      :class="{ 'live2d-canvas--hidden': isLoading }"
       :style="canvasStyle"
     ></canvas>
   </div>
@@ -47,6 +57,7 @@ const canvasRef = ref(null)
 let pixiApp = null
 let live2DModel = null
 let removeResizeListener = null
+const isLoading = ref(true)
 
 const toCssDimension = (value) => {
   if (typeof value === 'number' && !Number.isNaN(value)) return `${value}px`
@@ -131,10 +142,15 @@ onMounted(async () => {
 
   pixiApp = new PIXI.Application(appOptions)
 
-  live2DModel = await Live2DModel.from(props.modelPath)
-  pixiApp.stage.addChild(live2DModel)
-  resizeRendererIfNumeric()
-  updateModelTransform()
+  try {
+    isLoading.value = true
+    live2DModel = await Live2DModel.from(props.modelPath)
+    pixiApp.stage.addChild(live2DModel)
+    resizeRendererIfNumeric()
+    updateModelTransform()
+  } finally {
+    isLoading.value = false
+  }
 
   if (props.autoResizeToWindow && typeof window !== 'undefined') {
     const handleWindowResize = () => updateModelTransform()
@@ -146,6 +162,7 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
+  isLoading.value = true
   live2DModel?.destroy()
   pixiApp?.destroy(true)
   pixiApp = null
@@ -202,5 +219,42 @@ watch(
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.live2d-canvas--hidden {
+  opacity: 0;
+}
+
+.live2d-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 16px;
+  color: #6b7ab3;
+  text-align: center;
+}
+
+.live2d-loading__spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #dfe4ff;
+  border-top-color: #6b7ab3;
+  border-radius: 50%;
+  animation: live2d-spinner 1.1s linear infinite;
+}
+
+.live2d-loading__text {
+  font-size: 1rem;
+}
+
+@keyframes live2d-spinner {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
