@@ -19,6 +19,8 @@
     "dashjs": "^4.7.4",
     "flv.js": "^1.6.2",
     "hls.js": "^1.6.13",
+    "pixi-live2d-display": "^0.4.0",
+    "pixi.js": "^6.5.10",
     "sass": "^1.83.0",
     "swiper": "^12.0.3",
     "video.js": "^8.21.0",
