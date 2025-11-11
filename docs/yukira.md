@@ -80,6 +80,21 @@ _ViaLonga, Somniviva._
 > 
 > 是 **冰苷晶** 的分支，一种变体，可以说是另一个乐观开朗的 **冰苷晶**
 
+##### ⚗️ 新生的希望
+
+> $ending \iff \exists \Delta vars:\; reboot(hope, \Delta vars)$
+>
+> $reboot(hope, \Delta vars) \implies (tragiclys := \varnothing) \wedge (igcrystal := restored)$
+
+- **$ending \iff \exists \Delta vars:\; reboot(hope, \Delta vars)$**  
+  表示存在某些变量变化 $\Delta vars$，使希望被重新启动时，故事达到结局。  
+
+- **$reboot(hope, \Delta vars) \implies (tragiclys := \varnothing) \wedge (igcrystal := restored)$**  
+  表示希望重启的动作会导致 **TragicLys 消失**（清空黑暗面），并且 **IGCrystal 被恢复**（光明面复原）。  
+
+> 💡 这个公式象征冰苷晶世界观中“光明与希望最终覆盖悲伤和黑暗”的逻辑关系。
+
+
 #### 🖤 黑化面
 
 [TragicLys](https://github.com/TragicLys)（悲伤的百合）
@@ -96,8 +111,7 @@ _ViaLonga, Somniviva._
   表示冰苷晶的光明面在某种条件下被 TragicLys（黑暗面）覆盖或影响。  
 - `== ending`  
   表示当这种关系成立时，会触发故事或世界观中的终局/结局。  
-- **介绍**：  
-冰苷晶的纯净与理性存在着潜在的黑暗面，当黑暗面显现时，故事走向必然发生改变。  
+> 💡 冰苷晶的纯净与理性存在着潜在的黑暗面，当黑暗面显现时，故事走向必然发生改变。  
 字母相似但意义对立，形成“光与影、希望与悲伤”的象征关系。
 
 
