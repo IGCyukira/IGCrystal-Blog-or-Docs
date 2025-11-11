@@ -59,6 +59,18 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  pointerTracking: {
+    type: Boolean,
+    default: false,
+  },
+  pointerOffsetX: {
+    type: Number,
+    default: 0,
+  },
+  pointerOffsetY: {
+    type: Number,
+    default: 0,
+  },
 })
 
 const canvasRef = ref(null)
@@ -70,6 +82,7 @@ const isLoading = ref(true)
 const modelBounds = ref(null)
 let resizeObserver = null
 let pendingSync = false
+let removePointerListeners = null
 
 const toCssDimension = (value) => {
   if (typeof value === 'number' && !Number.isNaN(value)) return `${value}px`
@@ -102,6 +115,70 @@ const canvasStyle = computed(() => ({
   width: '100%',
   height: '100%',
 }))
+
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
+
+const focusModel = (x, y, instant = false) => {
+  const controller = live2DModel?.internalModel?.focusController
+  if (!controller) return
+  controller.focus(clamp(x, -1, 1), clamp(y, -1, 1), instant)
+}
+
+const getPointerFocus = (event) => {
+  if (!canvasRef.value || typeof event?.clientX !== 'number' || typeof event?.clientY !== 'number') return null
+  const rect = canvasRef.value.getBoundingClientRect()
+  if (!rect.width || !rect.height) return null
+
+  const ratioX = (event.clientX - rect.left) / rect.width
+  const ratioY = (event.clientY - rect.top) / rect.height
+
+  return {
+    x: ratioX * 2 - 1,
+    y: (1 - ratioY) * 2 - 1,
+  }
+}
+
+const handlePointerMove = (event) => {
+  if (!props.pointerTracking || !live2DModel) return
+  const focus = getPointerFocus(event)
+  if (!focus) return
+
+  focusModel(focus.x + (props.pointerOffsetX ?? 0), focus.y + (props.pointerOffsetY ?? 0))
+}
+
+const handlePointerLeave = () => {
+  focusModel(props.pointerOffsetX ?? 0, props.pointerOffsetY ?? 0)
+}
+
+const updatePointerTracking = (instant = true) => {
+  removePointerListeners?.()
+  removePointerListeners = null
+
+  if (!props.pointerTracking || !canvasRef.value || !live2DModel || typeof window === 'undefined') {
+    focusModel(props.pointerOffsetX ?? 0, props.pointerOffsetY ?? 0, instant)
+    return
+  }
+
+  const canvasEl = canvasRef.value
+
+  const pointerMoveListener = (event) => handlePointerMove(event)
+  const pointerEnterListener = (event) => handlePointerMove(event)
+  const pointerLeaveListener = () => handlePointerLeave()
+
+  canvasEl.addEventListener('pointermove', pointerMoveListener)
+  canvasEl.addEventListener('pointerdown', pointerMoveListener)
+  canvasEl.addEventListener('pointerenter', pointerEnterListener)
+  canvasEl.addEventListener('pointerleave', pointerLeaveListener)
+
+  removePointerListeners = () => {
+    canvasEl.removeEventListener('pointermove', pointerMoveListener)
+    canvasEl.removeEventListener('pointerdown', pointerMoveListener)
+    canvasEl.removeEventListener('pointerenter', pointerEnterListener)
+    canvasEl.removeEventListener('pointerleave', pointerLeaveListener)
+  }
+
+  focusModel(props.pointerOffsetX ?? 0, props.pointerOffsetY ?? 0, instant)
+}
 
 const positionModel = () => {
   if (!pixiApp || !live2DModel) return
@@ -230,6 +307,7 @@ onMounted(async () => {
     pixiApp.stage.addChild(live2DModel)
     resizeRendererIfNumeric()
     updateModelTransform()
+    updatePointerTracking(true)
   } finally {
     isLoading.value = false
   }
@@ -255,6 +333,8 @@ onBeforeUnmount(() => {
   live2DModel = null
   removeResizeListener?.()
   removeResizeListener = null
+  removePointerListeners?.()
+  removePointerListeners = null
 })
 
 watch(
@@ -292,6 +372,22 @@ watch(
       resizeRendererIfNumeric()
       updateModelTransform()
     }
+  },
+)
+
+watch(
+  () => props.pointerTracking,
+  () => {
+    if (!live2DModel) return
+    updatePointerTracking(true)
+  },
+)
+
+watch(
+  [() => props.pointerOffsetX, () => props.pointerOffsetY],
+  () => {
+    if (!live2DModel) return
+    focusModel(props.pointerOffsetX ?? 0, props.pointerOffsetY ?? 0)
   },
 )
 </script>

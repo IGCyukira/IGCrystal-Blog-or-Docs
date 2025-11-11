@@ -44,6 +44,8 @@ onBeforeUnmount(() => {
       modelPath="/assets/live2d/mao_pro_en/runtime/mao_pro.model3.json"
       :scale="live2dScale"
       :resolution="live2dResolution"
+      :pointer-tracking="true"
+      :pointer-offset-y="-0.1"
     />
   </ClientOnly>
 
