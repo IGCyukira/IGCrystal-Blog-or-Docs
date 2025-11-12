@@ -68,59 +68,65 @@ _ViaLonga, Somniviva._
 
 ### 💎 另一个 她
 
-#### 🌈 美好面
+::: info 新生的希望 [LyricGats](https://github.com/LyricGats)
 
-[LyricGats](https://blog.igcrystal.icu/yukira.html#🌈-美好面)
+> 抒情诗，**内心光明、目标明确、品德美好**  
+> 字母组成相似但意义美好  
+> 另一个乐观开朗的 **冰苷晶**  
 
-> 苪笴婙，**内心光明、目标明确、品德美好**
-> 
-> **冰苷晶** 的分支，一种变体，可以说是另一个乐观开朗的 **冰苷晶**
-
-##### ⚗️ 新生的希望
+---
 
 > $ending \iff \exists \Delta vars:\; reboot(hope, \Delta vars)$
 >
 > $reboot(hope, \Delta vars) \implies (tragiclys := \varnothing) \wedge (igcrystal := restored)$
 
-- **$ending \iff \exists \Delta vars:\; reboot(hope, \Delta vars)$**  
-  表示已经是结局，但是依旧存在某些变量 $\Delta vars$，这使得一切被重新启动，达到新的起点。  
+::: tip 终局与重生
 
-- **$reboot(hope, \Delta vars) \implies (tragiclys := \varnothing) \wedge (igcrystal := restored)$**  
-  表示希望与变量的力量之强大，旧的 **TragicLys 消失**（黑暗面的消失），而新生的 **IGCrystal 被恢复**（光明面的重生）。  
+- $ending \iff \exists \Delta vars:\; reboot(hope, \Delta vars)$  
+  已经是结局，但是依旧存在某些变量 $\Delta vars$，这使得一切被重新启动，达到新的起点。  
 
-> 💡 这个公式象征冰苷晶世界观中“光明与希望覆盖悲伤和黑暗”的逻辑关系。
+- $reboot(hope, \Delta vars) \implies (tragiclys := \varnothing) \wedge (igcrystal := restored)$  
+  希望与变量的力量之强大，而 **TragicLys 褪去**，而 **IGCrystal 重生**。  
 
+:::
 
-#### 🖤 黑化面
+> 💡 真正的结局或许令人悲痛欲绝，但是总有希望会拯救迷途之人。
 
-[TragicLys](https://github.com/TragicLys)
+::: info 亘古的真理 [TragicLys](https://github.com/TragicLys)
 
-> 悲伤的百合，象征冰苷晶的另一面（黑化、阴暗、绝望）。
-> 
-> 字母结构与 **IGCrystal** 相似，表面一致但本质对立。 
+> 悲伤的百合，象征冰苷晶的另一面（黑化、阴暗、绝望）。  
+> 字母组成相似但意义对立  
+> 另一个孤独黑暗的 **冰苷晶**  
 
-##### ⚖️ 亘古的真理
+---
 
-> `(igcrystal <= tragiclys) == ending`
+::: tip 堕落的终局
+
+> (igcrystal <= tragiclys) == ending
 
 - `igcrystal <= tragiclys`  
-  表示冰苷晶的本身会在某种条件下被 TragicLys（黑暗面）覆盖或影响。  
+  表示冰苷晶的本身会在某种条件下被 TragicLys 覆盖或影响。  
 - `== ending`  
-  表示当这种关系成立时，会触发故事或世界观中的终局/结局。  
-> 💡 冰苷晶的纯净与理性存在着潜在的黑暗面，当黑暗面显现时，故事走向必然发生改变。  
-字母相似但意义对立，形成“光与影、希望与悲伤”的象征关系。
+  表示当这种关系成立时，会触发故事或世界观中的终局/结局。 
+
+:::
+
+> 💡 人生并不是一帆风顺，是堕落下去，还是继续挣扎呢？  
 
 ---
 
 #### ⌛ 光明与黑暗沦为循环
 
+::: tip 意义
 ##### 🌸 生命周期
 
 - 每次循环是一次生命周期
 
 ##### 🍂 自我迭代
 
-- 下一次循环，会变得更强大，或许也会更不幸
+- 下一次循环，会变得更强大，抑或许会更不幸
+
+:::
 
 <style>
 .media{

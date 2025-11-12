@@ -32,5 +32,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "overrides": {
+    "tmp": "0.2.4"
   }
 }
