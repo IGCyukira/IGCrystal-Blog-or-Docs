@@ -70,9 +70,9 @@ _ViaLonga, Somniviva._
 
 #### 🌈 美好面
 
-[苪笴婙](https://blog.igcrystal.icu/yukira.html#🌈-美好面)
+[LyricGats](https://blog.igcrystal.icu/yukira.html#🌈-美好面)
 
-> 代号 LyricGats, 读音（可作 *Bǐng Jiǎ Jīng* 或近音）
+> 苪笴婙，读音（可作 *Bǐng Jiǎ Jīng* 或近音）
 > 
 > 含义：**内心光明、目标明确、品德美好**
 > 
