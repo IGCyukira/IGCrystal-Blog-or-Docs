@@ -70,9 +70,9 @@ _ViaLonga, Somniviva._
 
 #### 🌈 美好面
 
-**苪笴婙**
+[苪笴婙](https://blog.igcrystal.icu/yukira.html#🌈-美好面)
 
-> 读音（可作 *Bǐng Jiǎ Jīng* 或近音）
+> 代号 LyricGats, 读音（可作 *Bǐng Jiǎ Jīng* 或近音）
 > 
 > 含义：**内心光明、目标明确、品德美好**
 > 
@@ -85,33 +85,42 @@ _ViaLonga, Somniviva._
 > $reboot(hope, \Delta vars) \implies (tragiclys := \varnothing) \wedge (igcrystal := restored)$
 
 - **$ending \iff \exists \Delta vars:\; reboot(hope, \Delta vars)$**  
-  表示存在某些变量变化 $\Delta vars$，使希望被重新启动时，故事达到结局。  
+  表示已经是结局，但是依旧存在某些变量 $\Delta vars$，这使得一切被重新启动，达到新的起点。  
 
 - **$reboot(hope, \Delta vars) \implies (tragiclys := \varnothing) \wedge (igcrystal := restored)$**  
-  表示希望重启的动作会导致 **TragicLys 消失**（清空黑暗面），并且 **IGCrystal 被恢复**（光明面复原）。  
+  表示希望与变量的力量之强大，旧的 **TragicLys 消失**（黑暗面的消失），而新生的 **IGCrystal 被恢复**（光明面的重生）。  
 
-> 💡 这个公式象征冰苷晶世界观中“光明与希望最终覆盖悲伤和黑暗”的逻辑关系。
+> 💡 这个公式象征冰苷晶世界观中“光明与希望覆盖悲伤和黑暗”的逻辑关系。
 
 
 #### 🖤 黑化面
 
-[TragicLys](https://github.com/TragicLys)（悲伤的百合）
+[TragicLys](https://github.com/TragicLys)
 
-| 名称        | 说明 / 寓意                                                      |
-|-----------|---------------------------------------------------------------|
-| **TragicLys** | 悲伤的百合，象征冰苷晶的另一面（黑化、阴暗、绝望）。字母结构与 **IGCrystal** 相似，表面一致但本质对立。 |
+> 悲伤的百合，象征冰苷晶的另一面（黑化、阴暗、绝望）。
+> 
+> 字母结构与 **IGCrystal** 相似，表面一致但本质对立。 
 
-##### ⚖️ 亘古的代数
+##### ⚖️ 亘古的真理
 
 > `(igcrystal <= tragiclys) == ending`
 
 - `igcrystal <= tragiclys`  
-  表示冰苷晶的光明面在某种条件下被 TragicLys（黑暗面）覆盖或影响。  
+  表示冰苷晶的本身会在某种条件下被 TragicLys（黑暗面）覆盖或影响。  
 - `== ending`  
   表示当这种关系成立时，会触发故事或世界观中的终局/结局。  
 > 💡 冰苷晶的纯净与理性存在着潜在的黑暗面，当黑暗面显现时，故事走向必然发生改变。  
 字母相似但意义对立，形成“光与影、希望与悲伤”的象征关系。
 
+#### 光明与黑暗沦为循环
+
+##### 生命周期
+
+- 每次循环是一次生命周期
+
+##### 自我迭代
+
+- 下一次循环，会变得更强大，或许也会更不幸
 
 <style>
 .media{
