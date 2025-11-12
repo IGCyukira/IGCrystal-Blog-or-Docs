@@ -68,7 +68,7 @@ _ViaLonga, Somniviva._
 
 ### 💎 另一个 她
 
-::: info 新生的希望 [LyricGats](https://github.com/LyricGats)
+::: info 新生的希望 [LyrigCats](https://github.com/LyrigCats)
 
 > 抒情诗，**内心光明、目标明确、品德美好**  
 > 字母组成相似但意义美好  
