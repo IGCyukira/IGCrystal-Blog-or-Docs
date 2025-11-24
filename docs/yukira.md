@@ -7,7 +7,7 @@ tags: [隐藏部分]
 
 <div class="media">
   <img
-    src="https://github.wenturc.com/IGCyukira/IGCyukira/refs/heads/main/img/IGCrystal_NOBG_Edit.webp"
+    src="https://github.wenturc.com/IGCyukira/IGCyukira/refs/heads/main/img/IGCrystal_Edit_EyE_2_nobg.webp"
     alt="IGCyukira"
     class="media__img"
     loading="lazy"
