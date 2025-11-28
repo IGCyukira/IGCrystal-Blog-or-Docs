@@ -42,6 +42,7 @@ export default defineUserConfig({
       hostname: 'https://blog.igcrystal.icu',
       localSitemapFilename: 'sitemap.xml',
       includeLocal: true,
+      forceAllowAll: true,
       externalSitemaps: [
         // 在此添加其他站点 sitemap
         'https://wenturc.com/sitemap.xml',

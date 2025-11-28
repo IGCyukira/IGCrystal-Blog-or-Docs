@@ -7,6 +7,9 @@ export interface RobotsPluginOptions {
   includeLocal?: boolean
   localSitemapFilename?: string
   externalSitemaps?: string[]
+  forceAllowAll?: boolean
+  allow?: string[]
+  disallow?: string[]
 }
 
 function ensureEndingSlash(s: string) {
@@ -28,6 +31,10 @@ function unique<T>(arr: T[]): T[] {
   return Array.from(new Set(arr))
 }
 
+function normalizeRule(rule: string) {
+  return rule.trim()
+}
+
 function joinUrl(hostname: string, base: string, file: string) {
   const h = normalizeHostname(hostname)
   const b = normalizeBase(base)
@@ -41,6 +48,9 @@ export function robotsPlugin(options: RobotsPluginOptions) {
     includeLocal = true,
     localSitemapFilename = 'sitemap.xml',
     externalSitemaps = [],
+    forceAllowAll = true,
+    allow = [],
+    disallow = [],
   } = options
 
   return (app: App) => ({
@@ -56,9 +66,53 @@ export function robotsPlugin(options: RobotsPluginOptions) {
       }
 
       const lines = content.split(/\r?\n/)
-      const nonSitemapLines = lines
+      let nonSitemapLines = lines
         .filter((l) => !/^\s*Sitemap:\s*/i.test(l))
         .map((l) => l.trimEnd())
+
+      const normalizedAllow = unique((allow || []).map((item) => normalizeRule(item)).filter(Boolean))
+      const normalizedDisallow = unique((disallow || []).map((item) => normalizeRule(item)).filter(Boolean))
+
+      if (normalizedAllow.length) {
+        nonSitemapLines = nonSitemapLines.filter((line) => !/^\s*Allow:/i.test(line))
+      }
+
+      if (normalizedDisallow.length) {
+        nonSitemapLines = nonSitemapLines.filter((line) => !/^\s*Disallow:/i.test(line))
+      }
+
+      let hasUserAgent = false
+      nonSitemapLines = nonSitemapLines.map((line) => {
+        if (/^\s*User-agent:/i.test(line)) hasUserAgent = true
+        if (/^\s*Disallow:\s*$/i.test(line) && normalizedDisallow.length === 0 && normalizedAllow.length === 0) {
+          return 'Allow: /'
+        }
+        return line
+      })
+
+      if (!hasUserAgent) {
+        nonSitemapLines = ['User-agent: *', ...nonSitemapLines]
+      }
+
+      const shouldForceAllow = forceAllowAll && normalizedAllow.length === 0 && normalizedDisallow.length === 0
+      if (shouldForceAllow) {
+        const firstAgentIndex = nonSitemapLines.findIndex((line) => /^\s*User-agent:/i.test(line))
+        const insertionIndex = firstAgentIndex === -1 ? 0 : firstAgentIndex + 1
+        const alreadyHasAllowRoot = nonSitemapLines.some((line) => /^\s*Allow:\s*\/$/i.test(line))
+        if (!alreadyHasAllowRoot) {
+          nonSitemapLines.splice(insertionIndex, 0, 'Allow: /')
+        }
+      }
+
+      if (normalizedAllow.length || normalizedDisallow.length) {
+        const firstAgentIndex = nonSitemapLines.findIndex((line) => /^\s*User-agent:/i.test(line))
+        const insertionIndex = firstAgentIndex === -1 ? 0 : firstAgentIndex + 1
+        const directiveLines = [
+          ...normalizedDisallow.map((rule) => `Disallow: ${rule}`),
+          ...normalizedAllow.map((rule) => `Allow: ${rule}`),
+        ]
+        nonSitemapLines.splice(insertionIndex, 0, ...directiveLines)
+      }
 
       const sitemapUrls: string[] = []
       if (includeLocal) {
