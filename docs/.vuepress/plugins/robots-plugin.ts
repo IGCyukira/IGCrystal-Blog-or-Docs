@@ -13,8 +13,13 @@ function ensureEndingSlash(s: string) {
   return s.endsWith('/') ? s : `${s}/`
 }
 
+function normalizeBase(base: string) {
+  if (!base) return '/'
+  const withLeading = base.startsWith('/') ? base : `/${base}`
+  return withLeading === '/' ? '/' : ensureEndingSlash(withLeading)
+}
+
 function normalizeHostname(hostname: string) {
-  // 统一 http(s) 前缀，去掉尾部 /
   if (!/^https?:\/\//i.test(hostname)) hostname = `https://${hostname}`
   return hostname.replace(/\/$/, '')
 }
@@ -25,8 +30,9 @@ function unique<T>(arr: T[]): T[] {
 
 function joinUrl(hostname: string, base: string, file: string) {
   const h = normalizeHostname(hostname)
-  const b = base === '/' ? '' : ensureEndingSlash(base)
-  return `${h}${b}${file}`
+  const b = normalizeBase(base)
+  const f = file.replace(/^\/+/g, '')
+  return `${h}${b}${f}`
 }
 
 export function robotsPlugin(options: RobotsPluginOptions) {
