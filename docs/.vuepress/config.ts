@@ -45,7 +45,7 @@ export default defineUserConfig({
       forceAllowAll: true,
       externalSitemaps: [
         // 在此添加其他站点 sitemap
-        'https://wenturc.com/sitemap.xml',
+        'https://revaea.com/sitemap.xml',
         'https://igcrustal.icu/sitemap.xml',
       ],
     }),

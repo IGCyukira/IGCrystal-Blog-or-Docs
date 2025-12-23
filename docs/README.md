@@ -3,7 +3,7 @@ home: true
 config:
   - 
     type: banner
-    banner: https://api.wenturc.com
+    banner: https://api.revaea.com
     bannerMask:
       dark: 0.5
       light: 0.3
