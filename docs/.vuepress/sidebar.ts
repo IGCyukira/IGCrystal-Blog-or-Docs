@@ -1,4 +1,4 @@
-import { SidebarMulti } from "vuepress-theme-plume";
+import type { ThemeSidebarMulti } from 'vuepress-theme-plume';
 
 export default {
     '/learn/': [
@@ -9,7 +9,8 @@ export default {
             '/learn/',  // README.md 对应路径
             '/learn/1.md', 
             '/learn/2.md',
+            '/learn/3.md',
             ],
         },
     ],
-} as SidebarMulti;
+} as ThemeSidebarMulti;
