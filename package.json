@@ -2,11 +2,11 @@
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.26",
     "cz-conventional-changelog": "^3.3.0",
-    "sass-embedded": "^1.80.6",
-    "typescript": "^5.9.2",
-    "vue": "^3.5.22",
+    "sass-embedded": "^1.97.3",
+    "typescript": "^5.9.3",
+    "vue": "^3.5.27",
     "vuepress": "2.0.0-rc.26",
-    "vuepress-theme-plume": "1.0.0-rc.174"
+    "vuepress-theme-plume": "1.0.0-rc.187"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
@@ -16,15 +16,15 @@
   "dependencies": {
     "all": "^0.0.0",
     "artplayer": "^5.3.0",
-    "axios": "^1.7.9",
+    "axios": "^1.13.4",
     "dashjs": "^4.7.4",
     "flv.js": "^1.6.2",
-    "hls.js": "^1.6.13",
-    "pixi-live2d-display": "^v0.5.0-beta",
-    "pixi.js": "^7.0.0",
-    "sass": "^1.83.0",
-    "swiper": "^12.0.3",
-    "video.js": "^8.21.0",
+    "hls.js": "^1.6.15",
+    "pixi-live2d-display": "0.5.0-beta",
+    "pixi.js": "^7.4.3",
+    "sass": "^1.97.3",
+    "swiper": "^12.1.0",
+    "video.js": "^8.23.4",
     "videojs-contrib-dash": "^5.1.1",
     "videojs-flvjs": "^0.3.1"
   },
