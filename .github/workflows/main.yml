@@ -1,0 +1,37 @@
+name: 自动修复 Lock 文件
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 拉取代码
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: 📦 安装 PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 🟢 设置 Node 环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 🔨 重新生成 Lock 文件
+        run: pnpm install --no-frozen-lockfile
+
+      - name: 📤 提交并推送到仓库
+        run: |
+          git config --global user.name 'IGCyukirs'
+          git config --global user.email 'IGCyukira@outlook.jp'
+          git add pnpm-lock.yaml
+          git diff --cached --quiet || git commit -m "chore: auto-fix pnpm-lock.yaml"
+          git push
