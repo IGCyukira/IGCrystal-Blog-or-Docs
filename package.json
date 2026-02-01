@@ -35,7 +35,10 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "overrides": {
-    "tmp": "0.2.4"
+  "pnpm": {
+    "overrides": {
+      "lodash": "4.17.23",
+      "tmp": "0.2.5"
+    }
   }
 }
