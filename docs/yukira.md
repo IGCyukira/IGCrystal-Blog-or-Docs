@@ -16,7 +16,7 @@ tags: [隐藏部分]
 
 <div align="center">
 
-# [IGCyukira / IGCyukito](https://github.com/IGCyukira) / [IGCrystal](https://github.com/IGCrystal)
+# [IGCyukira](https://github.com/IGCyukira) / [IGCyukito](https://github.com/IGCyukira) / [IGCrystal](https://github.com/IGCrystal)
 
 ==路很长，梦还在==
 
