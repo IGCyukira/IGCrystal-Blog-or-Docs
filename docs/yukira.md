@@ -16,7 +16,7 @@ tags: [隐藏部分]
 
 <div align="center">
 
-# [IGCyukira](https://github.com/IGCyukira) / [IGCrystal](https://github.com/IGCrystal)
+# [IGCyukira / IGCyukito](https://github.com/IGCyukira) / [IGCrystal](https://github.com/IGCrystal)
 
 ==路很长，梦还在==
 
@@ -62,7 +62,7 @@ _ViaLonga, Somniviva._
 | ------------------------- | ------------------------------------------------------------                                             |
 | **Ice Glycoside Crystal** | 英文正式译名，对应日文「雪グリコシド結晶」。是英语全称。                                                     |
 | **IGCrystal**             | 简写形式。设定上为 *IGCyukira* 的 *husk* 。用于代号、文档、或视觉化表现。                                    |
-| **IGCyukira**             | 诗意昵称形式（由 *IGCrystal + Yukira* 构成），带有人格化与柔性特征。对应日语形式。设定上为 *IGCrystal* 的核心 |
+| **IGCyukira (外向活泼)  IGCyukito (内向可爱)**             | 诗意昵称形式（由 *IGCrystal + Yukira / Yukito* 构成），带有人格化与柔性特征。对应日语形式。设定上为 *IGCrystal* 的核心 |
 
 ---
 
