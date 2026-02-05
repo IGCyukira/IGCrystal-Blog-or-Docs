@@ -27,7 +27,7 @@ export default defineUserConfig({
       comment: {
         provider: 'Giscus',
         comment: true,
-        repo: 'igcrystal-neo/igcrystal-blog-or-docs',
+        repo: 'IGCyukira/IGCrystal-Blog-or-Docs',
         repoId: 'R_kgDOM13P7A',
         category: 'Ideas',
         categoryId: 'DIC_kwDOM13P7M4Cj96G',
