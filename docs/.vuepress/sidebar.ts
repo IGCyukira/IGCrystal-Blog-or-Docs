@@ -3,7 +3,7 @@ import type { ThemeSidebarMulti } from 'vuepress-theme-plume';
 export default {
     '/learn/': [
         {
-            text: '这算新的开始吧',
+            text: '葵蕾謠',
             collapsed: false, // VuePress 2.x 中的 `collapsable` 替换为 `collapsed`
             items: [
             '/learn/',  // README.md 对应路径
