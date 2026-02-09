@@ -10,6 +10,7 @@ export default {
             '/learn/1.md', 
             '/learn/2.md',
             '/learn/3.md',
+            '/learn/4.md',
             ],
         },
     ],
