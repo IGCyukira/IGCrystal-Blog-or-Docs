@@ -10,12 +10,12 @@ export default defineUserConfig({
   title: 'IGCrystal Blog', 
   description: '路很长，梦仍在',
   head: [ 
-    ['link', { rel: 'icon', href: '/logo.png' }], 
+    ['link', { rel: 'icon', href: '/favicon.jpg' }], 
   ],
 
   theme: plumeTheme({
     // 其他主题配置
-    logo: '/logo.png',
+    logo: '/favicon.jpg',
     hostname: 'https://blog.igcrystal.icu',
 
     autoFrontmatter: false,
