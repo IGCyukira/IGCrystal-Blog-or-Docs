@@ -34,6 +34,18 @@ export default defineUserConfig({
         darkTheme: 'dark_protanopia',
         lightTheme: 'light_protanopia',
       },
+      sitemap: {
+        // 只收录 yukira 页面：先排除所有页面路径，再手动加回 /yukira.html
+        excludePaths: [
+          '/learn/',
+          '/learn/1.html',
+          '/learn/2.html',
+          '/learn/3.html',
+          '/learn/4.html',
+          '/learn/5.html',
+          '/game/',
+        ],
+      },
     },
   }),
 
