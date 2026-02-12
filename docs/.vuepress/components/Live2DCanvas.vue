@@ -22,76 +22,72 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import type { CSSProperties } from 'vue'
+import type { Application } from 'pixi.js'
+import type { Live2DModel as Live2DModelInstance } from 'pixi-live2d-display/cubism4'
 import { ensureLive2DCore } from '../utils/ensureLive2DCore'
 
-const props = defineProps({
-  modelPath: {
-    type: String,
-    default: '/assets/live2d/mao_pro_en/runtime/mao_pro.model3.json',
-  },
-  scale: {
-    type: Number,
-    default: 0.2,
-  },
-  width: {
-    type: [Number, String],
-    default: '100%',
-  },
-  height: {
-    type: [Number, String],
-    default: '100%',
-  },
-  resolution: {
-    type: Number,
-    default: 1,
-  },
-  centered: {
-    type: Boolean,
-    default: true,
-  },
-  autoResizeToWindow: {
-    type: Boolean,
-    default: true,
-  },
-  fitHeightToModel: {
-    type: Boolean,
-    default: true,
-  },
-  pointerTracking: {
-    type: Boolean,
-    default: false,
-  },
-  pointerOffsetX: {
-    type: Number,
-    default: 0,
-  },
-  pointerOffsetY: {
-    type: Number,
-    default: 0,
-  },
+type CssDimension = number | string
+
+type ModelBounds = {
+  width: number
+  height: number
+}
+
+type PointerFocus = {
+  x: number
+  y: number
+}
+
+interface Props {
+  modelPath: string
+  scale: number
+  width: CssDimension
+  height: CssDimension
+  resolution: number
+  centered: boolean
+  autoResizeToWindow: boolean
+  fitHeightToModel: boolean
+  pointerTracking: boolean
+  pointerOffsetX: number
+  pointerOffsetY: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelPath: '/assets/live2d/mao_pro_en/runtime/mao_pro.model3.json',
+  scale: 0.2,
+  width: '100%',
+  height: '100%',
+  resolution: 1,
+  centered: true,
+  autoResizeToWindow: true,
+  fitHeightToModel: true,
+  pointerTracking: false,
+  pointerOffsetX: 0,
+  pointerOffsetY: 0,
 })
 
-const canvasRef = ref(null)
-const containerRef = ref(null)
-let pixiApp = null
-let live2DModel = null
-let removeResizeListener = null
-const isLoading = ref(true)
-const modelBounds = ref(null)
-let resizeObserver = null
+const canvasRef = ref<HTMLCanvasElement | null>(null)
+const containerRef = ref<HTMLDivElement | null>(null)
+let pixiApp: Application | null = null
+let live2DModel: Live2DModelInstance | null = null
+let removeResizeListener: (() => void) | null = null
+const isLoading = ref<boolean>(true)
+const modelBounds = ref<ModelBounds | null>(null)
+let resizeObserver: ResizeObserver | null = null
 let pendingSync = false
-let removePointerListeners = null
+let removePointerListeners: (() => void) | null = null
 
-const toCssDimension = (value) => {
+const toCssDimension = (value: unknown): string => {
   if (typeof value === 'number' && !Number.isNaN(value)) return `${value}px`
   if (typeof value === 'string' && value.trim().length > 0) return value
   return '100%'
 }
 
-const containerStyle = computed(() => {
-  const style = {
+const containerStyle = computed<CSSProperties>(() => {
+  const style: CSSProperties = {
     width: toCssDimension(props.width),
   }
 
@@ -111,20 +107,20 @@ const containerStyle = computed(() => {
   return style
 })
 
-const canvasStyle = computed(() => ({
+const canvasStyle = computed<CSSProperties>(() => ({
   width: '100%',
   height: '100%',
 }))
 
-const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
-const focusModel = (x, y, instant = false) => {
-  const controller = live2DModel?.internalModel?.focusController
+const focusModel = (x: number, y: number, instant = false) => {
+  const controller = (live2DModel as any)?.internalModel?.focusController
   if (!controller) return
   controller.focus(clamp(x, -1, 1), clamp(y, -1, 1), instant)
 }
 
-const getPointerFocus = (event) => {
+const getPointerFocus = (event: PointerEvent): PointerFocus | null => {
   if (!canvasRef.value || typeof event?.clientX !== 'number' || typeof event?.clientY !== 'number') return null
   const rect = canvasRef.value.getBoundingClientRect()
   if (!rect.width || !rect.height) return null
@@ -138,7 +134,7 @@ const getPointerFocus = (event) => {
   }
 }
 
-const handlePointerMove = (event) => {
+const handlePointerMove = (event: PointerEvent) => {
   if (!props.pointerTracking || !live2DModel) return
   const focus = getPointerFocus(event)
   if (!focus) return
@@ -161,8 +157,8 @@ const updatePointerTracking = (instant = true) => {
 
   const canvasEl = canvasRef.value
 
-  const pointerMoveListener = (event) => handlePointerMove(event)
-  const pointerEnterListener = (event) => handlePointerMove(event)
+  const pointerMoveListener = (event: PointerEvent) => handlePointerMove(event)
+  const pointerEnterListener = (event: PointerEvent) => handlePointerMove(event)
   const pointerLeaveListener = () => handlePointerLeave()
 
   canvasEl.addEventListener('pointermove', pointerMoveListener)
@@ -187,9 +183,9 @@ const positionModel = () => {
   const rendererHeight = pixiApp.renderer.height / pixiApp.renderer.resolution
 
   if (props.centered) {
-    live2DModel.position.set(rendererWidth / 2, rendererHeight / 2)
+    ;(live2DModel as any).position.set(rendererWidth / 2, rendererHeight / 2)
   } else {
-    live2DModel.position.set(0.5, 0.5)
+    ;(live2DModel as any).position.set(0.5, 0.5)
   }
 }
 
@@ -231,11 +227,11 @@ const scheduleRendererSync = () => {
 const updateModelTransform = () => {
   if (!pixiApp || !live2DModel) return
 
-  if (typeof live2DModel.anchor?.set === 'function') {
-    live2DModel.anchor.set(0.5, 0.5)
+  if (typeof (live2DModel as any).anchor?.set === 'function') {
+    ;(live2DModel as any).anchor.set(0.5, 0.5)
   }
 
-  live2DModel.scale.set(props.scale)
+  ;(live2DModel as any).scale.set(props.scale)
   positionModel()
   updateModelMetrics()
   scheduleRendererSync()
@@ -265,9 +261,9 @@ onMounted(async () => {
   const PIXI = await import('pixi.js')
   const { Live2DModel } = await import('pixi-live2d-display/cubism4')
 
-  window.PIXI = PIXI
+  ;(window as any).PIXI = PIXI
 
-  const appOptions = {
+  const appOptions: any = {
     view: canvasRef.value,
     autoStart: true,
     backgroundAlpha: 0,
@@ -286,7 +282,8 @@ onMounted(async () => {
     appOptions.height = props.height
   }
 
-  pixiApp = new PIXI.Application(appOptions)
+  const app = new (PIXI as any).Application(appOptions) as Application
+  pixiApp = app
 
   if (typeof window !== 'undefined' && props.fitHeightToModel && 'ResizeObserver' in window) {
     resizeObserver = new ResizeObserver(() => {
@@ -304,7 +301,7 @@ onMounted(async () => {
   try {
     isLoading.value = true
     live2DModel = await Live2DModel.from(props.modelPath)
-    pixiApp.stage.addChild(live2DModel)
+    ;(app.stage as any).addChild(live2DModel)
     resizeRendererIfNumeric()
     updateModelTransform()
     updatePointerTracking(true)
