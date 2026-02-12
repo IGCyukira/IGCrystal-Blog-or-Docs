@@ -12,7 +12,7 @@ export default defineThemeConfig({
     },
 
     social: [
-        { icon: 'github', link: 'https://github.com/IGCrystal-NEO' },
+        { icon: 'github', link: 'https://github.com/IGCrystal' },
     ],
 
     navbar,
