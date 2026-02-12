@@ -10,9 +10,9 @@
     "vuepress-theme-plume": "1.0.0-rc.187"
   },
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs",
-    "preview": "npx serve docs/.vuepress/dist"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:preview": "npx serve docs/.vuepress/dist"
   },
   "dependencies": {
     "@vueuse/core": "^14.0.0",
