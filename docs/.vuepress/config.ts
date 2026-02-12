@@ -3,6 +3,7 @@ import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import { path } from 'vuepress/utils'
 import { robotsPlugin } from './plugins/robots-plugin'
+import { sitemapFilterPlugin } from './plugins/sitemap-filter-plugin'
 
 export default defineUserConfig({
   base: '/',
@@ -34,22 +35,20 @@ export default defineUserConfig({
         darkTheme: 'dark_protanopia',
         lightTheme: 'light_protanopia',
       },
-      sitemap: {
-        // 只收录 yukira 页面：先排除所有页面路径，再手动加回 /yukira.html
-        excludePaths: [
-          '/learn/',
-          '/learn/1.html',
-          '/learn/2.html',
-          '/learn/3.html',
-          '/learn/4.html',
-          '/learn/5.html',
-          '/game/',
-        ],
-      },
+      // 站点地图由主题在生产构建时启用（hostname 存在时）；
+      // 具体收录哪些页面由下面的 sitemapFilterPlugin 控制。
+      sitemap: {},
     },
   }),
 
   plugins: [
+    sitemapFilterPlugin({
+      // 只保留需要的页面（避免手动维护 excludePaths 列表）
+      allowPaths: [
+        '/',
+        '/yukira.html', 
+      ],
+    }),
     robotsPlugin({
       hostname: 'https://blog.igcrystal.icu',
       localSitemapFilename: 'sitemap.xml',
