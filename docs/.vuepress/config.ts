@@ -57,7 +57,6 @@ export default defineUserConfig({
       externalSitemaps: [
         // 在此添加其他站点 sitemap
         'https://revaea.com/sitemap.xml',
-        'https://igcrustal.icu/sitemap.xml',
       ],
     }),
   ],
