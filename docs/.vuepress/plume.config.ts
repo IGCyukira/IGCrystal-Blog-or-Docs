@@ -4,6 +4,32 @@ import sidebar from './sidebar';
 
 export default defineThemeConfig({
     logo: '/favicon.jpg',
+    collections: [
+        {
+            type: 'post',
+            dir: 'blog',
+            title: '博客',
+            postCover: {
+                layout: 'right',
+                ratio: '16:9',
+                width: 300,
+                compact: true
+            },
+            autoFrontmatter: {
+                title: true,
+                createTime: true,
+                permalink: true,
+            },
+            profile: {
+                avatar: '/favicon.jpg',
+                name: 'IGCrystal',
+                description: '路很长，梦还在',
+                circle: true,
+                location: 'Revaea Land',
+                layout: 'right',
+            },
+        },
+    ],
 
     profile: {
         avatar: '/favicon.jpg',
@@ -13,6 +39,14 @@ export default defineThemeConfig({
 
     social: [
         { icon: 'github', link: 'https://github.com/IGCrystal' },
+        { icon: 'bilibili', link: 'https://space.bilibili.com/523637242' },
+        { icon: 'steam', link: 'https://steamcommunity.com/id/IGCrystal' },
+        { icon: 'zhihu', link: 'https://www.zhihu.com/people/14-91-60-81' },
+        { icon: 'bluesky', link: 'https://bsky.app/profile/igcrystal.icu' },
+        { icon: 'telegram', link: 'https://t.me/IGCyukira' },
+        { icon: 'youtube', link: 'https://www.youtube.com/@%E8%89%BD%E8%89%BD%E5%8F%AA' },
+        { icon: 'xbox', link: 'https://www.xbox.com/zh-cn/play/user/Tenirs606' },
+        { icon: 'x', link:'https://x.com/Cedar2352'},
     ],
 
     navbar,

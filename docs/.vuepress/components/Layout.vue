@@ -10,23 +10,18 @@ import VPFooter from '@theme/VPFooter.vue'
 import VPLocalNav from '@theme/VPLocalNav.vue'
 import VPSidebar from '@theme/VPSidebar.vue'
 import VPSkipLink from '@theme/VPSkipLink.vue'
-import { watch } from 'vue'
-import { useRoute } from 'vuepress/client'
-import { useCloseSidebarOnEscape, useData, useEncrypt, useSidebar } from 'vuepress-theme-plume/composables'
+import { registerWatchers, useData, useEncrypt, useSidebarControl } from 'vuepress-theme-plume/composables'
 
 const {
-  isOpen: isSidebarOpen,
-  open: openSidebar,
-  close: closeSidebar,
-} = useSidebar()
+  isSidebarEnabled,
+  enableSidebar,
+  disableSidebar,
+} = useSidebarControl()
 
 const { frontmatter } = useData()
 const { isGlobalDecrypted, isPageDecrypted } = useEncrypt()
 
-const route = useRoute()
-watch(() => route.path, closeSidebar)
-
-useCloseSidebarOnEscape(isSidebarOpen, closeSidebar)
+registerWatchers()
 </script>
 
 <template>
@@ -42,7 +37,7 @@ useCloseSidebarOnEscape(isSidebarOpen, closeSidebar)
 
       <VPSkipLink />
 
-      <VPBackdrop :show="isSidebarOpen" @click="closeSidebar" />
+      <VPBackdrop :show="isSidebarEnabled" @click="disableSidebar" />
 
       <VPNav>
         <template #nav-bar-title-before>
@@ -66,12 +61,12 @@ useCloseSidebarOnEscape(isSidebarOpen, closeSidebar)
       </VPNav>
 
       <VPLocalNav
-        :open="isSidebarOpen"
+        :open="isSidebarEnabled"
         :show-outline="isPageDecrypted"
-        @open-menu="openSidebar"
+        @open-menu="enableSidebar"
       />
 
-      <VPSidebar :open="isSidebarOpen">
+      <VPSidebar :open="isSidebarEnabled">
         <template #sidebar-nav-before>
           <slot name="sidebar-nav-before" />
         </template>

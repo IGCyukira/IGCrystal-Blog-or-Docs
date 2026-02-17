@@ -15,15 +15,10 @@ export default defineUserConfig({
   ],
 
   theme: plumeTheme({
-    // 其他主题配置
-    logo: '/favicon.jpg',
     hostname: 'https://blog.igcrystal.icu',
-
-    autoFrontmatter: false,
     markdown: {
       artPlayer: true,
     },
-
     plugins: {
       comment: {
         provider: 'Giscus',
@@ -66,9 +61,9 @@ export default defineUserConfig({
       __dirname,
       './components/VPHomeBanner.vue',
     ),
-    '@theme/Blog/VPPostItem.vue': path.resolve(
+    '@theme/Posts/VPPostItem.vue': path.resolve(
       __dirname,
-      './components/VPPostItem.vue',  
+      './components/Posts/VPPostItem.vue',
     ),
   },
 
