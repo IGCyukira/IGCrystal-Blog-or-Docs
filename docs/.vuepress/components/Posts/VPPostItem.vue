@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { PostsCoverStyle, ThemePostsItem } from 'vuepress-theme-plume/shared'
 import VPLink from 'vuepress-theme-plume/components/VPLink.vue'
-import { isMobile as _isMobile } from '@vuepress/helper/client'
 import { getReadingTimeLocale, useReadingTimeLocaleConfig } from '@vuepress/plugin-reading-time/client'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { withBase } from 'vuepress/client'
@@ -15,7 +14,22 @@ const { post, index } = defineProps<{
 const isMobile = ref(false)
 
 function updateIsMobile() {
-  isMobile.value = _isMobile()
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    isMobile.value = false
+    return
+  }
+
+  // Mirror @vuepress/helper/client isMobile()
+  // Prefer UA-CH if available
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const uaDataMobile = (navigator as any).userAgentData?.mobile
+  if (typeof uaDataMobile === 'boolean') {
+    isMobile.value = uaDataMobile
+    return
+  }
+
+  const ua = navigator.userAgent
+  isMobile.value = /\b(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|CriOS|FxiOS)\b/i.test(ua)
 }
 
 onMounted(() => {
