@@ -5,9 +5,9 @@
     "cz-conventional-changelog": "^3.3.0",
     "sass-embedded": "^1.97.3",
     "typescript": "^5.9.3",
-    "vue": "^3.5.27",
+    "vue": "^3.5.28",
     "vuepress": "2.0.0-rc.26",
-    "vuepress-theme-plume": "1.0.0-rc.187"
+    "vuepress-theme-plume": "1.0.0-rc.190"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
@@ -15,7 +15,7 @@
     "docs:preview": "npx serve docs/.vuepress/dist"
   },
   "dependencies": {
-    "@vueuse/core": "^14.0.0",
+    "@vueuse/core": "^14.2.1",
     "all": "^0.0.0",
     "artplayer": "^5.3.0",
     "axios": "^1.13.5",
@@ -25,8 +25,8 @@
     "pixi-live2d-display": "0.5.0-beta",
     "pixi.js": "^7.4.3",
     "sass": "^1.97.3",
-    "swiper": "^12.1.0",
-    "video.js": "^8.23.4",
+    "swiper": "^12.1.1",
+    "video.js": "^8.23.7",
     "videojs-contrib-dash": "^5.1.1",
     "videojs-flvjs": "^0.3.1"
   },
