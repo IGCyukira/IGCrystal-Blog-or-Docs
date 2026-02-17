@@ -55,7 +55,7 @@ importers:
         specifier: ^8.23.7
         version: 8.23.7
       videojs-contrib-dash:
-        specifier: ^5.1.0
+        specifier: ^5.1.1
         version: 5.1.1
       videojs-flvjs:
         specifier: ^0.3.1
