@@ -2,6 +2,7 @@
   "devDependencies": {
     "@vuepress/bundler-vite": "2.0.0-rc.26",
     "@vuepress/client": "2.0.0-rc.26",
+    "@vuepress/plugin-reading-time": "2.0.0-rc.123",
     "cz-conventional-changelog": "^3.3.0",
     "sass-embedded": "^1.97.3",
     "typescript": "^5.9.3",
@@ -38,6 +39,10 @@
     }
   },
   "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ],
     "overrides": {
       "lodash": "4.17.23",
       "tmp": "0.2.5"

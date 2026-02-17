@@ -55,7 +55,7 @@ importers:
         specifier: ^8.23.7
         version: 8.23.7
       videojs-contrib-dash:
-        specifier: ^5.1.1
+        specifier: ^5.1.0
         version: 5.1.1
       videojs-flvjs:
         specifier: ^0.3.1
@@ -67,6 +67,9 @@ importers:
       '@vuepress/client':
         specifier: 2.0.0-rc.26
         version: 2.0.0-rc.26(typescript@5.9.3)
+      '@vuepress/plugin-reading-time':
+        specifier: 2.0.0-rc.123
+        version: 2.0.0-rc.123(typescript@5.9.3)(vuepress@2.0.0-rc.26(@vuepress/bundler-vite@2.0.0-rc.26(@types/node@25.2.3)(jiti@2.6.1)(sass-embedded@1.97.3)(sass@1.97.3)(typescript@5.9.3)(yaml@2.8.2))(typescript@5.9.3)(vue@3.5.28(typescript@5.9.3)))
       cz-conventional-changelog:
         specifier: ^3.3.0
         version: 3.3.0(@types/node@25.2.3)(typescript@5.9.3)
