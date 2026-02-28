@@ -41,7 +41,7 @@ export default defineThemeConfig({
         { icon: 'github', link: 'https://github.com/IGCrystal' },
         { icon: 'bilibili', link: 'https://space.bilibili.com/523637242' },
         { icon: 'steam', link: 'https://steamcommunity.com/id/IGCrystal' },
-        { icon: 'zhihu', link: 'https://www.zhihu.com/people/14-91-60-81' },
+        { icon: 'zhihu', link: 'https://www.zhihu.com/people/IGCrystal' },
         { icon: 'bluesky', link: 'https://bsky.app/profile/igcrystal.icu' },
         { icon: 'telegram', link: 'https://t.me/IGCyukira' },
         { icon: 'youtube', link: 'https://www.youtube.com/@%E8%89%BD%E8%89%BD%E5%8F%AA' },
