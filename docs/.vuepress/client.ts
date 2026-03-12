@@ -1,5 +1,6 @@
 import { defineClientConfig } from 'vuepress/client'
 import { h } from 'vue'
+import { inject } from '@vercel/analytics'
 import './styles/custom.css'
 import Layout from './components/Layout.vue'
 import AsideNav from './components/AsideNav.vue'
@@ -14,6 +15,9 @@ export default defineClientConfig({
   },
   enhance({ app }) {
     if (typeof window !== 'undefined') {
+      // Vercel Web Analytics
+      inject()
+
       // 预加载 Cubism core，避免组件首次挂载时阻塞
       void ensureLive2DCore()
     }
