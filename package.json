@@ -1,9 +1,16 @@
 {
   "devDependencies": {
+    "@iconify/vue": "5.0.0",
     "@vuepress/bundler-vite": "2.0.0-rc.26",
     "@vuepress/client": "2.0.0-rc.26",
+    "@vuepress/helper": "2.0.0-rc.123",
+    "@vuepress/plugin-git": "2.0.0-rc.123",
+    "@vuepress/plugin-markdown-chart": "2.0.0-rc.123",
     "@vuepress/plugin-reading-time": "2.0.0-rc.123",
+    "@vueuse/integrations": "14.2.1",
     "cz-conventional-changelog": "^3.3.0",
+    "mark.js": "^8.11.1",
+    "minisearch": "^7.2.0",
     "sass-embedded": "^1.97.3",
     "typescript": "^5.9.3",
     "vue": "^3.5.28",
@@ -50,8 +57,10 @@
       }
     },
     "overrides": {
+      "immutable": "5.1.5",
       "lodash": "4.17.23",
-      "minimatch": "10.2.1",
+      "minimatch": "10.2.3",
+      "rollup": "4.59.0",
       "tmp": "0.2.5"
     }
   },
